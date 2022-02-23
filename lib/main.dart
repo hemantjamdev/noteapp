@@ -1,14 +1,31 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:noteapp/screen/notes_list.dart';
 import 'package:provider/provider.dart';
-
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
+import 'constant/strings.dart';
+import 'model/notes_model.dart';
 import 'notifier/notes_notifier.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  /// temp directory for database
+  Directory directory = await path_provider.getApplicationDocumentsDirectory();
+
+  /// hive database initialize
+  Hive.init(directory.path);
+
+  /// register adapter for store notes_model
+  Hive.registerAdapter(NotesModelAdapter());
+
+  ///create box(table) to store notes
+  Hive.openBox<NotesModelAdapter>(Strings.dbName);
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((value) => runApp(NotesApp()));
+      .then((value) => runApp(const NotesApp()));
 }
 
 class NotesApp extends StatelessWidget {
@@ -22,7 +39,7 @@ class NotesApp extends StatelessWidget {
         title: "TODO",
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.orange),
-        home: NotesList(),
+        home: const NotesList(),
       ),
     );
   }

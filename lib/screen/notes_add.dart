@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 class NotesAdd extends StatefulWidget {
   final NotesModel? note;
   final bool isUpdate;
+
   const NotesAdd({Key? key, this.note, required this.isUpdate})
       : super(key: key);
 
@@ -19,11 +20,27 @@ class _NotesAddState extends State<NotesAdd> {
   TextEditingController contentController = TextEditingController();
   NotesNotifier notesNotifier = NotesNotifier();
   FocusNode contentFocusNode = FocusNode();
+
   addNewNote() {
     Uuid uuid = const Uuid();
     NotesModel note = NotesModel(
         id: uuid.v1(),
-       // userid: uuid.v1(),
+        // userid: uuid.v1(),
+        title: titleController.text,
+        content: contentController.text,
+        createdon: DateTime.now());
+   // Provider.of<NotesNotifier>(context, listen: false).addNote(note);
+    Provider.of<NotesNotifier>(context, listen: false).addItem(note);
+
+
+    //Navigator.pop(context);
+  }
+
+  noteUpdate() {
+    //  Uuid uuid = const Uuid();
+    NotesModel note = NotesModel(
+        id: widget.note!.id,
+        // userid: uuid.v1(),
         title: titleController.text,
         content: contentController.text,
         createdon: DateTime.now());
@@ -31,7 +48,11 @@ class _NotesAddState extends State<NotesAdd> {
     Navigator.pop(context);
   }
 
-  noteUpdate() {}
+  deleteNote() {
+    Provider.of<NotesNotifier>(context, listen: false).deleteNote(widget.note!);
+    Navigator.pop(context);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -46,6 +67,14 @@ class _NotesAddState extends State<NotesAdd> {
     return Scaffold(
       appBar: AppBar(
         actions: [
+          widget.isUpdate
+              ? IconButton(
+                  onPressed: () {
+                    deleteNote();
+                  },
+                  icon: const Icon(Icons.delete),
+                )
+              : const SizedBox(),
           IconButton(
             onPressed: () {
               titleController.text.isNotEmpty ? addNewNote() : noteUpdate();

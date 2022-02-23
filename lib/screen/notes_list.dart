@@ -22,50 +22,59 @@ class NotesList extends StatelessWidget {
                   ? StaggeredGrid.count(
                       crossAxisCount: 2,
                       children: notifier.notes
-                          .map((e) => GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => NotesAdd(
-                                                isUpdate: true,
-                                                note: e,
-                                              )));
-                                },
-                                onLongPress: () {},
-                                child: Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                          color: Colors.black, width: 2)),
-                                  margin: const EdgeInsets.all(5),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        e.title!,
-                                        style: const TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 22,
-                                            overflow: TextOverflow.ellipsis),
-                                      ),
-                                      Text(
-                                        e.content!,
-                                        style: TextStyle(
-                                          color: Colors.grey[700],
-                                          fontSize: 18,
-                                          // overflow: TextOverflow.ellipsis
-                                        ),
-                                      ),
-                                    ],
+                          .map(
+                            (note) => GestureDetector(
+                              onDoubleTap: () {
+                                notifier.addNote(note);
+                              },
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NotesAdd(
+                                      isUpdate: true,
+                                      note: note,
+                                    ),
                                   ),
+                                );
+                              },
+                              onLongPress: () {
+                                if (notifier.notes.isNotEmpty) {
+                                  notifier.deleteNote(note);
+                                }
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(
+                                        color: Colors.black, width: 2)),
+                                margin: const EdgeInsets.all(5),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      note.title!,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 22,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    Text(
+                                      note.content!,
+                                      style: TextStyle(
+                                        color: Colors.grey[700],
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ))
-                          .toList(),
-                    )
+                              ),
+                            ),
+                          )
+                          .toList())
                   : const Center(child: Text("no notes found"));
             },
           ),
@@ -74,12 +83,11 @@ class NotesList extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
+
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const NotesAdd(
-                        isUpdate: false,
-                      )));
+                  builder: (context) => const NotesAdd(isUpdate: false)));
         },
       ),
     );
