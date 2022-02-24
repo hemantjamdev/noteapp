@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:noteapp/constant/strings.dart';
 import 'package:noteapp/model/notes_model.dart';
+import 'package:noteapp/widgets/toast.dart';
 
 class NotesAdd extends StatefulWidget {
   final NotesModel? note;
@@ -19,7 +20,7 @@ class _NotesAddState extends State<NotesAdd> {
   TextEditingController contentController = TextEditingController();
   FocusNode contentFocusNode = FocusNode();
 
-  ///hive method
+  ///hive add note method
   addNewNote() async {
     String _id = (DateTime.now().year.toString() +
             DateTime.now().hour.toString() +
@@ -35,14 +36,23 @@ class _NotesAddState extends State<NotesAdd> {
         createdon: DateTime.now());
     var box = await Hive.openBox<NotesModel>(Strings.dbName);
 
-    box.put(int.parse(_id), item);
+    box.put(int.parse(_id), item).then((value) => toast(Strings.newNoteAdded));
     Navigator.pop(context);
   }
 
   ///hive delete
   deleteNote() async {
+    // add note in bin database
+    var binBox = await Hive.openBox<NotesModel>(Strings.binDbName);
+    binBox.put(int.parse(widget.note!.id!), widget.note!);
+
+    // delete from actual database
     var box = await Hive.openBox<NotesModel>(Strings.dbName);
-    box.delete(int.parse(widget.note!.id!));
+    box
+        .delete(int.parse(widget.note!.id!))
+        .then((value) => toast(Strings.noteDeleted));
+
+    Navigator.pop(context);
   }
 
   /// hive update
@@ -54,7 +64,9 @@ class _NotesAddState extends State<NotesAdd> {
         content: contentController.text,
         createdon: DateTime.now());
     var box = await Hive.openBox<NotesModel>(Strings.dbName);
-    box.put(int.parse(widget.note!.id!), item);
+    box
+        .put(int.parse(widget.note!.id!), item)
+        .then((value) => toast(Strings.noteUpdated));
     Navigator.pop(context);
   }
 
@@ -83,7 +95,10 @@ class _NotesAddState extends State<NotesAdd> {
           IconButton(
             onPressed: () {
               if (titleController.text.isNotEmpty) {
-                widget.isUpdate ?  noteUpdate():addNewNote();
+                widget.isUpdate ? noteUpdate() : addNewNote();
+              } else {
+                Navigator.pop(context);
+                toast(Strings.noteDiscarded);
               }
             },
             icon: const Icon(Icons.done),

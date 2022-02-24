@@ -21,6 +21,7 @@ void main() async {
 
   ///create box(table) to store notes
   await Hive.openBox<NotesModel>(Strings.dbName);
+  await Hive.openBox<NotesModel>(Strings.binDbName);
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(const NotesApp()));
@@ -39,3 +40,39 @@ class NotesApp extends StatelessWidget {
     );
   }
 }
+
+///splash screen
+/*
+class Splash extends StatelessWidget {
+  const Splash({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: [
+                const Color(0xFFF8A016),
+                const Color(0xFFFF6F00),
+              ],
+              begin: const FractionalOffset(0.0, 1.0),
+              end: const FractionalOffset(1.0, 0.0),
+              stops: [0.0, 1.0],
+              tileMode: TileMode.clamp),
+        ),
+
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+
+        child: Center(
+            child: Text(
+          "TODO",
+          style: TextStyle(
+              fontSize: 72, fontWeight: FontWeight.bold, color: Colors.white),
+        )),
+      ),
+    );
+  }
+}
+*/
