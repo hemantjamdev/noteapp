@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:noteapp/constant/strings.dart';
 import 'package:noteapp/model/notes_model.dart';
-import 'package:noteapp/notifier/notes_notifier.dart';
-import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
 
 class NotesAdd extends StatefulWidget {
   final NotesModel? note;
@@ -18,38 +17,44 @@ class NotesAdd extends StatefulWidget {
 class _NotesAddState extends State<NotesAdd> {
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
-  NotesNotifier notesNotifier = NotesNotifier();
   FocusNode contentFocusNode = FocusNode();
 
-  addNewNote() {
-    Uuid uuid = const Uuid();
-    NotesModel note = NotesModel(
-        id: uuid.v1(),
+  ///hive method
+  addNewNote() async {
+    String _id = (DateTime.now().year.toString() +
+            DateTime.now().hour.toString() +
+            DateTime.now().minute.toString() +
+            DateTime.now().second.toString())
+        .toString();
+
+    NotesModel item = NotesModel(
+        id: _id,
         // userid: uuid.v1(),
         title: titleController.text,
         content: contentController.text,
         createdon: DateTime.now());
-   // Provider.of<NotesNotifier>(context, listen: false).addNote(note);
-    Provider.of<NotesNotifier>(context, listen: false).addItem(note);
+    var box = await Hive.openBox<NotesModel>(Strings.dbName);
 
-
-    //Navigator.pop(context);
-  }
-
-  noteUpdate() {
-    //  Uuid uuid = const Uuid();
-    NotesModel note = NotesModel(
-        id: widget.note!.id,
-        // userid: uuid.v1(),
-        title: titleController.text,
-        content: contentController.text,
-        createdon: DateTime.now());
-    Provider.of<NotesNotifier>(context, listen: false).addNote(note);
+    box.put(int.parse(_id), item);
     Navigator.pop(context);
   }
 
-  deleteNote() {
-    Provider.of<NotesNotifier>(context, listen: false).deleteNote(widget.note!);
+  ///hive delete
+  deleteNote() async {
+    var box = await Hive.openBox<NotesModel>(Strings.dbName);
+    box.delete(int.parse(widget.note!.id!));
+  }
+
+  /// hive update
+  noteUpdate() async {
+    NotesModel item = NotesModel(
+        id: widget.note!.id!,
+        // userid: uuid.v1(),
+        title: titleController.text,
+        content: contentController.text,
+        createdon: DateTime.now());
+    var box = await Hive.openBox<NotesModel>(Strings.dbName);
+    box.put(int.parse(widget.note!.id!), item);
     Navigator.pop(context);
   }
 
@@ -77,10 +82,12 @@ class _NotesAddState extends State<NotesAdd> {
               : const SizedBox(),
           IconButton(
             onPressed: () {
-              titleController.text.isNotEmpty ? addNewNote() : noteUpdate();
+              if (titleController.text.isNotEmpty) {
+                widget.isUpdate ?  noteUpdate():addNewNote();
+              }
             },
             icon: const Icon(Icons.done),
-          )
+          ),
         ],
       ),
       body: SafeArea(

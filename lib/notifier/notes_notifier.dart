@@ -1,10 +1,17 @@
+/*
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:noteapp/constant/strings.dart';
 import 'package:noteapp/model/notes_model.dart';
 
 class NotesNotifier with ChangeNotifier {
+  NotesNotifier() {
+    getItem();
+  }
   List<NotesModel> notes = [];
-  List notelist = <NotesModel>[];
+
   addNote(NotesModel note) {
     notes.add(note);
     notifyListeners();
@@ -25,20 +32,17 @@ class NotesNotifier with ChangeNotifier {
   }
 
   addItem(NotesModel item) async {
-    var box = await Hive.openBox<NotesModel>('notes');
+    var box = await Hive.openBox<NotesModel>(Strings.dbName);
 
     box.add(item);
 
     notifyListeners();
   }
 
-  
-
   getItem() async {
-    final box = await Hive.openBox<NotesModel>('notes');
-
-    notelist = box.values.toList();
-
+    final box =  Hive.box<NotesModel>(Strings.dbName);
+    notes = box.values.toList();
     notifyListeners();
   }
 }
+*/
