@@ -111,6 +111,7 @@ class _NotesAddState extends State<NotesAdd> {
           child: Column(
             children: [
               TextField(
+                textInputAction: TextInputAction.next,
                 autofocus: widget.isUpdate ? false : true,
                 onSubmitted: (val) {
                   contentFocusNode.requestFocus();

@@ -1,27 +1,18 @@
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:noteapp/model/notes_model.dart';
-import 'package:noteapp/screen/final_delete.dart';
-import 'package:noteapp/screen/notes_add.dart';
 
-Widget noteWidget(BuildContext context, NotesModel note, bool finalDelete) {
+Widget noteWidget(
+    {required BuildContext context,
+    required NotesModel note,
+    required double width}) {
   return GestureDetector(
-    onTap: () {
-      finalDelete
-          ? Navigator.push(context,
-              MaterialPageRoute(builder: (context) => FinalDelete(note: note)))
-          : Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => NotesAdd(isUpdate: true, note: note),
-              ),
-            );
-    },
     child: Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.black, width: 1)),
+          border: Border.all(color: Colors.black, width: width)),
       margin: const EdgeInsets.all(5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
