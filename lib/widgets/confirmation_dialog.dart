@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:noteapp/constant/strings.dart';
 
-Future<bool> confirmationDialog({required BuildContext context,required String message}) async {
+Future<bool> confirmationDialog(
+    {required BuildContext context, required String message}) async {
   return await showDialog(
     context: context,
     builder: (context) {
       return SimpleDialog(
-        title:  Text(message, textAlign: TextAlign.center),
+        title: Text(message, textAlign: TextAlign.center),
         children: [
           TextButton(
               onPressed: () {

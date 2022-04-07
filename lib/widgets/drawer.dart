@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:noteapp/constant/strings.dart';
-import 'package:noteapp/screen/recycle_bin.dart';
 
 Widget customDrawer(BuildContext context) {
   return Drawer(
+    backgroundColor: Colors.orangeAccent[100],
     child: ListView(
       children: <Widget>[
         const DrawerHeader(
@@ -12,8 +12,7 @@ Widget customDrawer(BuildContext context) {
         ListTile(
           onTap: () {
             Navigator.pop(context);
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => const Bin()));
+            Navigator.pushNamed(context, '/bin');
           },
           leading: const Icon(Icons.delete),
           title: const Text(Strings.recycleBin),

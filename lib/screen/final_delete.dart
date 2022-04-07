@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:noteapp/constant/strings.dart';
+import 'package:noteapp/database_helper/bin_database_helper.dart';
 import 'package:noteapp/model/notes_model.dart';
 import 'package:noteapp/widgets/confirmation_dialog.dart';
 
 class FinalDelete extends StatefulWidget {
-  final NotesModel? note;
+  final NotesModel note;
 
-  const FinalDelete({Key? key, this.note}) : super(key: key);
+  const FinalDelete({Key? key, required this.note}) : super(key: key);
 
   @override
   State<FinalDelete> createState() => _FinalDeleteState();
@@ -18,30 +18,21 @@ class _FinalDeleteState extends State<FinalDelete> {
   TextEditingController contentController = TextEditingController();
   FocusNode contentFocusNode = FocusNode();
 
-  ///hive delete
-  deleteNote() async {
-    var box = await Hive.openBox<NotesModel>(Strings.binDbName);
+  void deleteSingleNote({required NotesModel note}) {
     confirmationDialog(context: context, message: Strings.sureToDelete)
         .then((value) {
       if (value) {
-        box.delete(int.parse(widget.note!.id!));
+        BinHelper.deleteSelected(note);
         Navigator.pop(context);
       }
     });
   }
 
-  ///restore
-  restore() {
+  void putBack() {
     confirmationDialog(context: context, message: Strings.sureToRestore)
-        .then((value) async {
+        .then((value) {
       if (value) {
-        // add note in actual database
-        var binBox = await Hive.openBox<NotesModel>(Strings.dbName);
-        binBox.put(int.parse(widget.note!.id!), widget.note!);
-
-        // delete from bin database
-        var box = await Hive.openBox<NotesModel>(Strings.binDbName);
-        box.delete(int.parse(widget.note!.id!));
+        BinHelper.restoreSelected(widget.note);
 
         Navigator.pop(context);
       }
@@ -52,8 +43,8 @@ class _FinalDeleteState extends State<FinalDelete> {
   void initState() {
     super.initState();
 
-    titleController.text = widget.note!.title!;
-    contentController.text = widget.note!.content!;
+    titleController.text = widget.note.title!;
+    contentController.text = widget.note.content!;
   }
 
   @override
@@ -66,23 +57,19 @@ class _FinalDeleteState extends State<FinalDelete> {
           children: [
             OutlinedButton.icon(
               label: const Text(Strings.delete),
-              onPressed: () {
-                deleteNote();
-              },
+              onPressed: () => deleteSingleNote(note: widget.note),
               icon: const Icon(Icons.delete),
             ),
             OutlinedButton.icon(
               label: const Text(Strings.restore),
-              onPressed: () {
-                restore();
-              },
+              onPressed: () => putBack(),
               icon: const Icon(Icons.refresh),
             )
           ],
         ),
       ),
       appBar: AppBar(
-        title: Text(widget.note!.title!),
+        title: Text(widget.note.title!),
       ),
       body: SafeArea(
         child: Container(
