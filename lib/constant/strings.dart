@@ -18,5 +18,6 @@ class Strings {
   static const String noteDiscarded = "Empty note discarded";
   static const String delete = "DELETE";
   static const String restore = 'RESTORE';
+  static const String logout = 'LOGOUT';
   static const String sureToRestore = "Your want to restore ?";
 }

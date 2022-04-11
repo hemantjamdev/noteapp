@@ -17,6 +17,14 @@ Widget customDrawer(BuildContext context) {
           leading: const Icon(Icons.delete),
           title: const Text(Strings.recycleBin),
         ),
+        ListTile(
+          onTap: () {
+            Navigator.pop(context);
+           // Navigator.pushNamed(context, '/bin');
+          },
+          leading: const Icon(Icons.logout),
+          title: const Text(Strings.logout),
+        ),
       ],
     ),
   );

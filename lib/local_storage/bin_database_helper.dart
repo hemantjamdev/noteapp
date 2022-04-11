@@ -5,22 +5,22 @@ import 'package:noteapp/widgets/toast.dart';
 
 class BinHelper {
   ///hive delete multiple selected
-  ///hive delete
+
   static deleteSelected(NotesModel note) async {
     var box = await Hive.openBox<NotesModel>(Strings.binDbName);
-    box.delete(int.parse(note.id!));
+    box.delete(note.id!);
   }
 
   /// put back to main database
   static void restoreSelected(NotesModel note) async {
     var binBox = await Hive.openBox<NotesModel>(Strings.dbName);
-    binBox.put(int.parse(note.id!), note);
+    binBox.put(note.id!, note);
 
-    // delete from bin database
+    /// delete from bin database
     var box = await Hive.openBox<NotesModel>(Strings.binDbName);
-    box.delete(int.parse(note.id!));
+    box.delete(note.id);
   }
-
+/// delete whole database
   static deleteAll() async {
     var box = await Hive.openBox<NotesModel>(Strings.binDbName);
     if (box.isNotEmpty) {

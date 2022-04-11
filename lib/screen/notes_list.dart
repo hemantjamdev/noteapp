@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:noteapp/constant/strings.dart';
-import 'package:noteapp/database_helper/note_database_helper.dart';
+import 'package:noteapp/local_storage/note_database_helper.dart';
 import 'package:noteapp/model/notes_model.dart';
 import 'package:noteapp/widgets/drawer.dart';
 import 'package:noteapp/widgets/note.dart';
 
 class NotesList extends StatefulWidget {
   const NotesList({Key? key}) : super(key: key);
-
+static const String routeName='noteList';
   @override
   State<NotesList> createState() => _NotesListState();
 }
 
 class _NotesListState extends State<NotesList> {
   List<NotesModel> deleteList = [];
+  List<NotesModel> undoList = [];
 
   void addToDeleteList(NotesModel note) {
     setState(() {});
@@ -23,12 +24,43 @@ class _NotesListState extends State<NotesList> {
   }
 
   void deleteSelected() {
-    setState(() {
-      for (var element in deleteList) {
-        Helper.multipleSelectedDelete(element);
-      }
-      deleteList.clear();
-    });
+    for (var element in deleteList) {
+
+      undoList.add(element);
+      Helper.multipleSelectedDelete(element);
+    }
+
+
+    showSnackBar();
+    deleteList.clear();
+    setState(() {});
+  }
+
+  putBack() {
+
+    for (var element in undoList) {
+      Helper.addNewNote(title: element.title!, content: element.content!);
+
+    }
+
+    undoList.clear();
+  }
+
+  showSnackBar() {
+    SnackBar snackBar = SnackBar(
+      content: const Text('note modev to recycle bin'),
+      action: SnackBarAction(
+        label: 'undo',
+        onPressed: () {
+          putBack();
+        },
+      ),
+    );
+
+    ScaffoldMessenger.of(context)
+        .showSnackBar(snackBar)
+        .closed
+        .then((value) => undoList.clear());
   }
 
   void handleOnTap(NotesModel note) {

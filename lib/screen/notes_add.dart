@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:noteapp/constant/strings.dart';
-import 'package:noteapp/database_helper/note_database_helper.dart';
+import 'package:noteapp/local_storage/note_database_helper.dart';
 import 'package:noteapp/model/notes_model.dart';
 import 'package:noteapp/widgets/toast.dart';
 
 class NotesAdd extends StatefulWidget {
   final Map<String, dynamic> map;
+  static const String routeName='noteAdd';
 
   const NotesAdd({Key? key, required this.map}) : super(key: key);
 

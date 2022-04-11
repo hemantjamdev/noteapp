@@ -4,7 +4,7 @@ part 'notes_model.g.dart';
 @HiveType(typeId: 0)
 class NotesModel {
   @HiveField(0)
-  String? id;
+  dynamic id;
 
   // String? userid;
   @HiveField(1)

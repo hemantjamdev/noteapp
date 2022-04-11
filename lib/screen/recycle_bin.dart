@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:noteapp/constant/strings.dart';
-import 'package:noteapp/database_helper/bin_database_helper.dart';
+import 'package:noteapp/local_storage/bin_database_helper.dart';
 import 'package:noteapp/model/notes_model.dart';
 import 'package:noteapp/widgets/confirmation_dialog.dart';
 import 'package:noteapp/widgets/note.dart';
 
 class Bin extends StatefulWidget {
   const Bin({Key? key}) : super(key: key);
+  static const String routeName='bin';
 
   @override
   State<Bin> createState() => _BinState();

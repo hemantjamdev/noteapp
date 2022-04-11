@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:noteapp/constant/strings.dart';
-import 'package:noteapp/database_helper/bin_database_helper.dart';
+import 'package:noteapp/local_storage/bin_database_helper.dart';
 import 'package:noteapp/model/notes_model.dart';
 import 'package:noteapp/widgets/confirmation_dialog.dart';
 
 class FinalDelete extends StatefulWidget {
   final NotesModel note;
+  static const String routeName='finalDelete';
 
   const FinalDelete({Key? key, required this.note}) : super(key: key);
 

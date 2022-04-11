@@ -19,7 +19,7 @@ class NotesModelAdapter extends TypeAdapter<NotesModel> {
     return NotesModel(
       createdon: fields[3] as DateTime?,
       title: fields[1] as String?,
-      id: fields[0] as String?,
+      id: fields[0] as dynamic,
       content: fields[2] as String?,
     );
   }
