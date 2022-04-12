@@ -4,6 +4,7 @@ import 'package:noteapp/constant/strings.dart';
 Future<bool> confirmationDialog(
     {required BuildContext context, required String message}) async {
   return await showDialog(
+    barrierDismissible: false,
     context: context,
     builder: (context) {
       return SimpleDialog(

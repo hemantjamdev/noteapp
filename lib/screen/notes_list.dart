@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:noteapp/admob/ad_helper.dart';
 import 'package:noteapp/constant/strings.dart';
 import 'package:noteapp/local_storage/note_database_helper.dart';
 import 'package:noteapp/model/notes_model.dart';
-import 'package:noteapp/widgets/drawer.dart';
+import 'package:noteapp/screen/notes_add.dart';
+import 'package:noteapp/screen/recycle_bin.dart';
 import 'package:noteapp/widgets/note.dart';
 
 class NotesList extends StatefulWidget {
   const NotesList({Key? key}) : super(key: key);
-static const String routeName='noteList';
+  static const String routeName = 'noteList';
+
   @override
   State<NotesList> createState() => _NotesListState();
 }
@@ -25,11 +29,9 @@ class _NotesListState extends State<NotesList> {
 
   void deleteSelected() {
     for (var element in deleteList) {
-
       undoList.add(element);
-      Helper.multipleSelectedDelete(element);
+      DbHelper.multipleSelectedDelete(element);
     }
-
 
     showSnackBar();
     deleteList.clear();
@@ -37,18 +39,15 @@ class _NotesListState extends State<NotesList> {
   }
 
   putBack() {
-
     for (var element in undoList) {
-      Helper.addNewNote(title: element.title!, content: element.content!);
-
+      DbHelper.addNewNote(title: element.title!, content: element.content!);
     }
-
     undoList.clear();
   }
 
   showSnackBar() {
     SnackBar snackBar = SnackBar(
-      content: const Text('note modev to recycle bin'),
+      content: const Text('note moved to archive'),
       action: SnackBarAction(
         label: 'undo',
         onPressed: () {
@@ -57,43 +56,64 @@ class _NotesListState extends State<NotesList> {
       ),
     );
 
-    ScaffoldMessenger.of(context)
-        .showSnackBar(snackBar)
-        .closed
-        .then((value) => undoList.clear());
+    ScaffoldMessenger.of(context).showSnackBar(snackBar).closed.then(
+          (value) => undoList.clear(),
+        );
   }
 
   void handleOnTap(NotesModel note) {
     Map<String, dynamic> args = {'note': note, 'isUpdate': true};
     deleteList.isEmpty
-        ? Navigator.pushNamed(context, '/add', arguments: args)
+        ? Navigator.pushNamed(context, NotesAdd.routeName, arguments: args)
         : deleteList.contains(note)
             ? removeFromDeleteList(note)
             : addToDeleteList(note);
   }
 
   void removeFromDeleteList(NotesModel note) {
-    setState(() {});
-    deleteList.remove(note);
+    setState(() {
+      deleteList.remove(note);
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // AdHelper.initializeAd();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: customDrawer(context),
       appBar: buildAppBar(),
       body: _body(),
       floatingActionButton: buildFloatingActionButton(context),
+      bottomNavigationBar: buildAdWidget(),
+    );
+  }
+
+  Widget buildAdWidget() {
+    return SizedBox(
+      height: AdHelper.noteListBanner.size.height.toDouble(),
+      child: AdWidget(
+        ad: AdHelper.noteListBanner,
+      ),
     );
   }
 
   AppBar buildAppBar() {
     return AppBar(
+      leading: IconButton(
+        onPressed: () => Navigator.pushNamed(context, Bin.routeName),
+        icon: const Icon(Icons.archive),
+      ),
       actions: [
         deleteList.isNotEmpty
             ? IconButton(
                 onPressed: () => deleteSelected(),
-                icon: const Icon(Icons.delete))
+                icon: const Icon(Icons.delete),
+              )
             : const SizedBox()
       ],
       elevation: 0,
@@ -116,24 +136,28 @@ class _NotesListState extends State<NotesList> {
             return box.values.isNotEmpty
                 ? SingleChildScrollView(
                     child: StaggeredGrid.count(
-                        crossAxisCount: 2,
-                        children: map.values
-                            .toList()
-                            .map((note) => GestureDetector(
-                                onTap: () {
-                                  handleOnTap(note);
-                                },
-                                onLongPress: () {
-                                  addToDeleteList(note);
-                                },
-                                child: noteWidget(
-                                  context: context,
-                                  note: note,
-                                  color: deleteList.contains(note)
-                                      ? Colors.black
-                                      : Colors.grey,
-                                )))
-                            .toList()),
+                      crossAxisCount: 2,
+                      children: map.values
+                          .toList()
+                          .map(
+                            (note) => GestureDetector(
+                              onTap: () {
+                                handleOnTap(note);
+                              },
+                              onLongPress: () {
+                                addToDeleteList(note);
+                              },
+                              child: noteWidget(
+                                context: context,
+                                note: note,
+                                color: deleteList.contains(note)
+                                    ? Colors.black
+                                    : Colors.grey,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
                   )
                 : const Center(
                     child: Text(
@@ -152,7 +176,7 @@ class _NotesListState extends State<NotesList> {
       child: const Icon(Icons.add),
       onPressed: () {
         Map<String, dynamic> args = {'note': null, 'isUpdate': false};
-        Navigator.pushNamed(context, '/add', arguments: args);
+        Navigator.pushNamed(context, NotesAdd.routeName, arguments: args);
       },
     );
   }

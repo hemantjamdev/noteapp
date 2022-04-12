@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:noteapp/admob/ad_helper.dart';
 import 'package:noteapp/constant/strings.dart';
 import 'package:noteapp/local_storage/bin_database_helper.dart';
 import 'package:noteapp/model/notes_model.dart';
@@ -6,7 +8,7 @@ import 'package:noteapp/widgets/confirmation_dialog.dart';
 
 class FinalDelete extends StatefulWidget {
   final NotesModel note;
-  static const String routeName='finalDelete';
+  static const String routeName = 'finalDelete';
 
   const FinalDelete({Key? key, required this.note}) : super(key: key);
 
@@ -48,61 +50,81 @@ class _FinalDeleteState extends State<FinalDelete> {
     contentController.text = widget.note.content!;
   }
 
+  Widget buildAdWidget() {
+    return SizedBox(
+      height: AdHelper.finalDeleteBanner.size.height.toDouble(),
+      child: AdWidget(ad: AdHelper.finalDeleteBanner),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+      bottomNavigationBar: buildAdWidget(),
+      appBar: buildAppBar(),
+      body: buildBody(),
+    );
+  }
+
+  Padding buildBottomNavigationBar() {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          OutlinedButton.icon(
+            label: const Text(Strings.delete),
+            onPressed: () => deleteSingleNote(note: widget.note),
+            icon: const Icon(Icons.delete),
+          ),
+          OutlinedButton.icon(
+            label: const Text(Strings.restore),
+            onPressed: () => putBack(),
+            icon: const Icon(Icons.refresh),
+          )
+        ],
+      ),
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      title: Text(widget.note.title!),
+    );
+  }
+
+  SafeArea buildBody() {
+    return SafeArea(
+      child: Container(
+        margin: const EdgeInsets.all(18),
+        child: Column(
           children: [
-            OutlinedButton.icon(
-              label: const Text(Strings.delete),
-              onPressed: () => deleteSingleNote(note: widget.note),
-              icon: const Icon(Icons.delete),
+            TextField(
+              enabled: false,
+              autofocus: false,
+              onSubmitted: (val) {
+                contentFocusNode.requestFocus();
+              },
+              controller: titleController,
+              decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "Title",
+                  hintStyle: TextStyle(fontSize: 26)),
             ),
-            OutlinedButton.icon(
-              label: const Text(Strings.restore),
-              onPressed: () => putBack(),
-              icon: const Icon(Icons.refresh),
-            )
-          ],
-        ),
-      ),
-      appBar: AppBar(
-        title: Text(widget.note.title!),
-      ),
-      body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.all(18),
-          child: Column(
-            children: [
-              TextField(
+            Expanded(
+              child: TextField(
                 enabled: false,
-                autofocus: false,
-                onSubmitted: (val) {
-                  contentFocusNode.requestFocus();
-                },
-                controller: titleController,
+                focusNode: contentFocusNode,
+                controller: contentController,
+                maxLines: null,
                 decoration: const InputDecoration(
                     border: InputBorder.none,
-                    hintText: "Title",
-                    hintStyle: TextStyle(fontSize: 26)),
+                    hintText: "Notes",
+                    hintStyle: TextStyle(fontSize: 24)),
               ),
-              Expanded(
-                child: TextField(
-                  enabled: false,
-                  focusNode: contentFocusNode,
-                  controller: contentController,
-                  maxLines: null,
-                  decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Notes",
-                      hintStyle: TextStyle(fontSize: 24)),
-                ),
-              ),
-            ],
-          ),
+            ),
+            buildBottomNavigationBar(),
+          ],
         ),
       ),
     );

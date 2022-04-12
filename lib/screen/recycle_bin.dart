@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:noteapp/admob/ad_helper.dart';
 import 'package:noteapp/constant/strings.dart';
 import 'package:noteapp/local_storage/bin_database_helper.dart';
 import 'package:noteapp/model/notes_model.dart';
 import 'package:noteapp/widgets/confirmation_dialog.dart';
 import 'package:noteapp/widgets/note.dart';
 
+import 'final_delete.dart';
+
 class Bin extends StatefulWidget {
   const Bin({Key? key}) : super(key: key);
-  static const String routeName='bin';
+  static const String routeName = 'bin';
 
   @override
   State<Bin> createState() => _BinState();
@@ -19,39 +23,45 @@ class _BinState extends State<Bin> {
   List<NotesModel> deleteList = [];
 
   void deleteSelected() {
-    confirmationDialog(context: context, message: Strings.sureToDelete)
-        .then((value) {
-      if (value) {
-        setState(() {
-          for (var element in deleteList) {
-            BinHelper.deleteSelected(element);
-          }
-          deleteList.clear();
-        });
-      }
-    });
+    confirmationDialog(context: context, message: Strings.sureToDelete).then(
+      (value) {
+        if (value) {
+          setState(
+            () {
+              for (var element in deleteList) {
+                BinHelper.deleteSelected(element);
+              }
+              deleteList.clear();
+            },
+          );
+        }
+      },
+    );
   }
 
   void handleOnTap(NotesModel note) {
     deleteList.isEmpty
-        ? Navigator.pushNamed(context, '/finalDelete', arguments: note)
+        ? Navigator.pushNamed(context, FinalDelete.routeName, arguments: note)
         : deleteList.contains(note)
             ? removeFromDeleteList(note)
             : addToDeleteList(note);
   }
 
   void putBack() {
-    confirmationDialog(context: context, message: Strings.sureToRestore)
-        .then((value) {
-      if (value) {
-        setState(() {
-          for (var element in deleteList) {
-            BinHelper.restoreSelected(element);
-          }
-          deleteList.clear();
-        });
-      }
-    });
+    confirmationDialog(context: context, message: Strings.sureToRestore).then(
+      (value) {
+        if (value) {
+          setState(
+            () {
+              for (var element in deleteList) {
+                BinHelper.restoreSelected(element);
+              }
+              deleteList.clear();
+            },
+          );
+        }
+      },
+    );
   }
 
   void addToDeleteList(NotesModel note) {
@@ -65,18 +75,32 @@ class _BinState extends State<Bin> {
   }
 
   void deleteAllNote(BuildContext context) async {
-    confirmationDialog(context: context, message: Strings.sureToDelete)
-        .then((value) {
-      if (value) {
-        BinHelper.deleteAll();
-      }
-    });
+    confirmationDialog(context: context, message: Strings.sureToDelete).then(
+      (value) {
+        if (value) {
+
+
+          setState(() {
+            BinHelper.deleteAll();
+            deleteList.clear();
+          });
+        }
+      },
+    );
+  }
+
+  Widget buildAdWidget() {
+    return SizedBox(
+      height: AdHelper.binBanner.size.height.toDouble(),
+      child: AdWidget(ad: AdHelper.binBanner),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: buildPadding(context),
+      bottomNavigationBar: buildAdWidget(),
+      floatingActionButton: deleteAllBin(context),
       appBar: buildAppBar(),
       body: buildSafeArea(),
     );
@@ -93,24 +117,28 @@ class _BinState extends State<Bin> {
             return box.values.isNotEmpty
                 ? SingleChildScrollView(
                     child: StaggeredGrid.count(
-                        crossAxisCount: 2,
-                        children: map.values
-                            .toList()
-                            .map((note) => GestureDetector(
-                                onTap: () {
-                                  handleOnTap(note);
-                                },
-                                onLongPress: () {
-                                  addToDeleteList(note);
-                                },
-                                child: noteWidget(
-                                  context: context,
-                                  note: note,
-                                  color: deleteList.contains(note)
-                                      ? Colors.black
-                                      : Colors.grey,
-                                )))
-                            .toList()),
+                      crossAxisCount: 2,
+                      children: map.values
+                          .toList()
+                          .map(
+                            (note) => GestureDetector(
+                              onTap: () {
+                                handleOnTap(note);
+                              },
+                              onLongPress: () {
+                                addToDeleteList(note);
+                              },
+                              child: noteWidget(
+                                context: context,
+                                note: note,
+                                color: deleteList.contains(note)
+                                    ? Colors.black
+                                    : Colors.grey,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
                   )
                 : const Center(
                     child: Text(
@@ -130,12 +158,14 @@ class _BinState extends State<Bin> {
         deleteList.isNotEmpty
             ? IconButton(
                 onPressed: () => deleteSelected(),
-                icon: const Icon(Icons.delete))
+                icon: const Icon(Icons.delete),
+              )
             : const SizedBox(),
         deleteList.isNotEmpty
             ? IconButton(
                 onPressed: () => putBack(),
-                icon: const Icon(Icons.drive_folder_upload))
+                icon: const Icon(Icons.drive_folder_upload),
+              )
             : const SizedBox()
       ],
       elevation: 0,
@@ -147,15 +177,15 @@ class _BinState extends State<Bin> {
     );
   }
 
-  Padding buildPadding(BuildContext context) {
+  Widget deleteAllBin(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: OutlinedButton.icon(
+      child: FloatingActionButton.extended(
         label: const Text(Strings.emptyBin),
+        tooltip: Strings.emptyBin,
         onPressed: () {
           deleteAllNote(context);
         },
-        icon: const Icon(Icons.delete),
       ),
     );
   }

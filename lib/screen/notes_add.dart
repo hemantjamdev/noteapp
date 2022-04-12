@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:noteapp/admob/ad_helper.dart';
 import 'package:noteapp/constant/strings.dart';
 import 'package:noteapp/local_storage/note_database_helper.dart';
 import 'package:noteapp/model/notes_model.dart';
@@ -6,7 +8,7 @@ import 'package:noteapp/widgets/toast.dart';
 
 class NotesAdd extends StatefulWidget {
   final Map<String, dynamic> map;
-  static const String routeName='noteAdd';
+  static const String routeName = 'noteAdd';
 
   const NotesAdd({Key? key, required this.map}) : super(key: key);
 
@@ -24,18 +26,18 @@ class _NotesAddState extends State<NotesAdd> {
   late bool isUpdate;
 
   void deleteSingleNote({required NotesModel note}) {
-    Helper.deleteSingleNote(note: note);
+    DbHelper.deleteSingleNote(note: note);
     Navigator.pop(context);
   }
 
   void noteUpdate(
       {required String id, required String title, required String content}) {
-    Helper.noteUpdate(id: id, title: title, content: content);
+    DbHelper.noteUpdate(id: id, title: title, content: content);
     Navigator.pop(context);
   }
 
   void addNewNote({required String title, required String content}) {
-    Helper.addNewNote(title: title, content: content);
+    DbHelper.addNewNote(title: title, content: content);
     Navigator.pop(context);
   }
 
@@ -61,11 +63,21 @@ class _NotesAddState extends State<NotesAdd> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: buildSafeArea(),
+      body: buildBody(),
+      bottomNavigationBar: buildAdWidget(),
     );
   }
 
-  SafeArea buildSafeArea() {
+  Widget buildAdWidget() {
+    return SizedBox(
+      height: AdHelper.noteAddBanner.size.height.toDouble(),
+      child: AdWidget(
+        ad: AdHelper.noteAddBanner,
+      ),
+    );
+  }
+
+  SafeArea buildBody() {
     return SafeArea(
       child: Container(
         margin: const EdgeInsets.all(18),
