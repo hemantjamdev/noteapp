@@ -9,8 +9,6 @@ import 'package:noteapp/model/notes_model.dart';
 import 'package:noteapp/widgets/confirmation_dialog.dart';
 import 'package:noteapp/widgets/note.dart';
 
-import 'final_delete.dart';
-
 class Bin extends StatefulWidget {
   const Bin({Key? key}) : super(key: key);
   static const String routeName = 'bin';
@@ -37,14 +35,6 @@ class _BinState extends State<Bin> {
         }
       },
     );
-  }
-
-  void handleOnTap(NotesModel note) {
-    deleteList.isEmpty
-        ? Navigator.pushNamed(context, FinalDelete.routeName, arguments: note)
-        : deleteList.contains(note)
-            ? removeFromDeleteList(note)
-            : addToDeleteList(note);
   }
 
   void putBack() {
@@ -78,8 +68,6 @@ class _BinState extends State<Bin> {
     confirmationDialog(context: context, message: Strings.sureToDelete).then(
       (value) {
         if (value) {
-
-
           setState(() {
             BinHelper.deleteAll();
             deleteList.clear();
@@ -122,9 +110,6 @@ class _BinState extends State<Bin> {
                           .toList()
                           .map(
                             (note) => GestureDetector(
-                              onTap: () {
-                                handleOnTap(note);
-                              },
                               onLongPress: () {
                                 addToDeleteList(note);
                               },
