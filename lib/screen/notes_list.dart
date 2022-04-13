@@ -4,6 +4,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:noteapp/admob/ad_helper.dart';
 import 'package:noteapp/constant/strings.dart';
+import 'package:noteapp/local_storage/bin_database_helper.dart';
 import 'package:noteapp/local_storage/note_database_helper.dart';
 import 'package:noteapp/model/notes_model.dart';
 import 'package:noteapp/screen/notes_add.dart';
@@ -41,6 +42,7 @@ class _NotesListState extends State<NotesList> {
   putBack() {
     for (var element in undoList) {
       DbHelper.addNewNote(title: element.title!, content: element.content!);
+      BinHelper.deleteSelected(element);
     }
     undoList.clear();
   }
