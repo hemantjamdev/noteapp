@@ -1,9 +1,8 @@
 # This is a generated file; do not edit or check into version control.
-fluttertoast=/Users/devubhamanek/tools/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.8/
-google_mobile_ads=/Users/devubhamanek/tools/flutter/.pub-cache/hosted/pub.dartlang.org/google_mobile_ads-1.2.0/
-path_provider=/Users/devubhamanek/tools/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.9/
-path_provider_android=/Users/devubhamanek/tools/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.11/
-path_provider_ios=/Users/devubhamanek/tools/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_ios-2.0.7/
-path_provider_linux=/Users/devubhamanek/tools/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.5/
-path_provider_macos=/Users/devubhamanek/tools/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-2.0.5/
-path_provider_windows=/Users/devubhamanek/tools/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.5/
+fluttertoast=/Users/devubhamanek/.pub-cache/hosted/pub.dev/fluttertoast-8.2.1/
+google_mobile_ads=/Users/devubhamanek/.pub-cache/hosted/pub.dev/google_mobile_ads-1.3.0/
+path_provider=/Users/devubhamanek/.pub-cache/hosted/pub.dev/path_provider-2.0.13/
+path_provider_android=/Users/devubhamanek/.pub-cache/hosted/pub.dev/path_provider_android-2.0.23/
+path_provider_foundation=/Users/devubhamanek/.pub-cache/hosted/pub.dev/path_provider_foundation-2.1.2/
+path_provider_linux=/Users/devubhamanek/.pub-cache/hosted/pub.dev/path_provider_linux-2.1.9/
+path_provider_windows=/Users/devubhamanek/.pub-cache/hosted/pub.dev/path_provider_windows-2.1.4/

@@ -64,18 +64,18 @@ class _NotesAddState extends State<NotesAdd> {
     return Scaffold(
       appBar: buildAppBar(context),
       body: buildBody(),
-      bottomNavigationBar: buildAdWidget(),
+     // bottomNavigationBar: buildAdWidget(),
     );
   }
 
-  Widget buildAdWidget() {
+  /*Widget buildAdWidget() {
     return SizedBox(
       height: AdHelper.noteAddBanner.size.height.toDouble(),
       child: AdWidget(
         ad: AdHelper.noteAddBanner,
       ),
     );
-  }
+  }*/
 
   SafeArea buildBody() {
     return SafeArea(

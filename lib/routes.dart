@@ -20,8 +20,6 @@ class Routes {
 
       case Bin.routeName:
         return MaterialPageRoute(builder: (context) => const Bin());
-
-
     }
   }
 }

@@ -77,17 +77,17 @@ class _BinState extends State<Bin> {
     );
   }
 
-  Widget buildAdWidget() {
+ /* Widget buildAdWidget() {
     return SizedBox(
       height: AdHelper.binBanner.size.height.toDouble(),
       child: AdWidget(ad: AdHelper.binBanner),
     );
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: buildAdWidget(),
+    //  bottomNavigationBar: buildAdWidget(),
       floatingActionButton: deleteAllBin(context),
       appBar: buildAppBar(),
       body: buildSafeArea(),

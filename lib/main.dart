@@ -18,7 +18,7 @@ void main() async {
   MobileAds.instance.initialize();
 
   /// banner ads initialize
-  AdHelper.initializeAd();
+// AdHelper.initializeAd();
 
   /// temp directory for database
   Directory directory = await path_provider.getApplicationDocumentsDirectory();
@@ -45,7 +45,13 @@ class NotesApp extends StatelessWidget {
     return MaterialApp(
       title: "TODO",
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.orange),
+      theme: ThemeData(
+      //  useMaterial3: true,
+        primarySwatch: Colors.orange,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+      ),
       onGenerateRoute: Routes.onGenerateRoutes,
     );
   }

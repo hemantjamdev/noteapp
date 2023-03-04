@@ -1,3 +1,4 @@
+/*
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdHelper {
@@ -67,3 +68,4 @@ class AdHelper {
     await finalDeleteBanner.load();
   }
 }
+*/

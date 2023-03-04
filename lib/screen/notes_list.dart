@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:lottie/lottie.dart';
 import 'package:noteapp/admob/ad_helper.dart';
 import 'package:noteapp/constant/strings.dart';
 import 'package:noteapp/local_storage/bin_database_helper.dart';
@@ -91,25 +92,27 @@ class _NotesListState extends State<NotesList> {
       appBar: buildAppBar(),
       body: _body(),
       floatingActionButton: buildFloatingActionButton(context),
-      bottomNavigationBar: buildAdWidget(),
+      //  bottomNavigationBar: buildAdWidget(),
     );
   }
 
-  Widget buildAdWidget() {
+  /* Widget buildAdWidget() {
     return SizedBox(
       height: AdHelper.noteListBanner.size.height.toDouble(),
       child: AdWidget(
         ad: AdHelper.noteListBanner,
       ),
     );
-  }
+  }*/
 
   AppBar buildAppBar() {
     return AppBar(
-      leading: IconButton(
+      leading:GestureDetector(
+          onTap: () => Navigator.pushNamed(context, Bin.routeName),
+          child: Lottie.asset("assets/animation/archive.json")), /*IconButton(
         onPressed: () => Navigator.pushNamed(context, Bin.routeName),
         icon: const Icon(Icons.archive),
-      ),
+      ),*/
       actions: [
         deleteList.isNotEmpty
             ? IconButton(
@@ -161,12 +164,7 @@ class _NotesListState extends State<NotesList> {
                           .toList(),
                     ),
                   )
-                : const Center(
-                    child: Text(
-                      Strings.noNotesInList,
-                      style: TextStyle(fontSize: 22),
-                    ),
-                  );
+                : Center(child: Lottie.asset("assets/animation/addnote.json"));
           },
         ),
       ),
@@ -174,9 +172,14 @@ class _NotesListState extends State<NotesList> {
   }
 
   FloatingActionButton buildFloatingActionButton(BuildContext context) {
-    return FloatingActionButton(
-      child: const Icon(Icons.add),
+    return FloatingActionButton.large(
+      splashColor: Colors.transparent,
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: Lottie.asset("assets/animation/add.json"),
+      //const Icon(Icons.add),
       onPressed: () {
+
         Map<String, dynamic> args = {'note': null, 'isUpdate': false};
         Navigator.pushNamed(context, NotesAdd.routeName, arguments: args);
       },
