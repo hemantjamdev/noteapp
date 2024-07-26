@@ -1,14 +1,8 @@
-# noteapp
+# note
 
+A new Flutter project.
 
-
-A new Flutter application.
-<img src="https://user-images.githubusercontent.com/60656624/169227337-aae1ac96-b27b-41b5-b650-0b8e8bc0b2a0.png" width="300" height="600">
-<img src="https://user-images.githubusercontent.com/60656624/169227345-d975c821-618f-43c7-87ad-8cca5ed6807a.png" width="300" height="600">
-<img src="https://user-images.githubusercontent.com/60656624/169227351-719c3ed9-b4d1-4545-8c46-34d552614fc8.png" width="300" height="600">
-<img src="https://user-images.githubusercontent.com/60656624/169227364-0177e3b0-dd9e-4043-a8af-3f0519b2bbf4.png" width="300" height="600">
-<img src="https://user-images.githubusercontent.com/60656624/169227361-61a11c59-2112-4096-89f6-66d5c810c520.png" width="300" height="600">
-
+<img src="https://user-images.githubusercontent.com/60656624/236793650-dac24282-2c55-420c-81be-4fb452378153.png" width="250" height="450">.  <img src="https://user-images.githubusercontent.com/60656624/236793658-d26d1dae-3a55-477e-af2a-7e5384e044a4.png" width="250" height="450">.  <img src="https://user-images.githubusercontent.com/60656624/236793665-1a0ff935-0dc7-4109-b69a-f7d149e33155.png" width="250" height="450">.  <img src="https://user-images.githubusercontent.com/60656624/236793667-17634e8a-a99f-44a4-bd4d-3535ccf48651.png" width="250" height="450">.  <img src="https://user-images.githubusercontent.com/60656624/236793671-bd8ddd06-0429-4062-badc-a53680121677.png" width="250" height="450">.
 
 
 
@@ -18,9 +12,9 @@ This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.

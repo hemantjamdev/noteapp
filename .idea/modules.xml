@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/noteapp.iml" filepath="$PROJECT_DIR$/.idea/noteapp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/noteapp_android.iml" filepath="$PROJECT_DIR$/android/noteapp_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/note.iml" filepath="$PROJECT_DIR$/.idea/note.iml" />
     </modules>
   </component>
 </project>

@@ -1,25 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:noteapp/constant/strings.dart';
 
-Future<bool> confirmationDialog(
-    {required BuildContext context, required String message}) async {
+Future<bool?> confirmation({
+  required BuildContext context,
+  required String title,
+  required String confirm,
+  required String cancel,
+  required String content,
+}) async {
   return await showDialog(
-    barrierDismissible: false,
     context: context,
-    builder: (context) {
-      return SimpleDialog(
-        title: Text(message, textAlign: TextAlign.center),
-        children: [
-          TextButton(
-              onPressed: () {
-                Navigator.pop(context, true);
-              },
-              child: const Text(Strings.yes)),
-          TextButton(
-              onPressed: () {
-                Navigator.pop(context, false);
-              },
-              child: const Text(Strings.no))
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+            child: Text(cancel),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              if (context.mounted) Navigator.of(context).pop(true);
+            },
+            child: Text(confirm),
+          ),
         ],
       );
     },

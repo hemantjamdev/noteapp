@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:noteapp/model/notes_model.dart';
-import 'package:noteapp/screen/notes_add.dart';
-import 'package:noteapp/screen/notes_list.dart';
-import 'package:noteapp/screen/recycle_bin.dart';
+import 'package:note/constants/routes_name.dart';
+import 'package:note/model/note_model.dart';
+import 'package:note/screens/home_page.dart';
+import 'package:note/screens/notes/edit_note.dart';
+import 'package:note/screens/notes/error_page.dart';
+import 'package:note/screens/splash.dart';
+
+import 'screens/notes/note_add.dart';
 
 class Routes {
   static Route? onGenerateRoutes(RouteSettings settings) {
     switch (settings.name) {
-      case "/":
-        return MaterialPageRoute(builder: (context) => const NotesList());
-
-      case NotesList.routeName:
-        return MaterialPageRoute(builder: (context) => const NotesList());
-
-      case NotesAdd.routeName:
+      case RoutesName.initialRoute:
+        return MaterialPageRoute(builder: (context) => const Splash());
+      case RoutesName.homepageRoute:
+        return MaterialPageRoute(builder: (context) => const HomePage());
+      case RoutesName.editRoute:
         return MaterialPageRoute(
             builder: (context) =>
-                NotesAdd(map: settings.arguments as Map<String, dynamic>));
-
-      case Bin.routeName:
-        return MaterialPageRoute(builder: (context) => const Bin());
+                EditNote(noteModel: settings.arguments as NoteModel));
+      case RoutesName.noteAddRoute:
+        return MaterialPageRoute(builder: (context) => const AddNote());
+      default:
+        return MaterialPageRoute(builder: (context) => const ErrorPage());
     }
   }
 }
