@@ -15,7 +15,7 @@ class GeminiChatCubit extends Cubit<GeminiChatState> {
     // initModel();
   }
 
-  String apiKey = "AIzaSyC3OUAHi6rf-iLBNFmqMlK6H-bI4EmjbxQ";
+  String apiKey = String.fromEnvironment("GEMINI_KEY");
   late final GenerativeModel model;
 
   initModel() {
