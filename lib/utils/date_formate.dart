@@ -1,13 +1,6 @@
 import 'package:intl/intl.dart';
 
-String formattedDate(DateTime dateTime) {
-  String formattedDate =
-      DateFormat("dd'${getOrdinalSuffix(dateTime.day)}' MMM yy  hh:mm")
-          .format(dateTime);
-  return formattedDate;
-}
-
-String getOrdinalSuffix(int day) {
+String _getOrdinalSuffix(int day) {
   if (day >= 11 && day <= 13) {
     return "th";
   }
@@ -20,5 +13,14 @@ String getOrdinalSuffix(int day) {
       return "rd";
     default:
       return "th";
+  }
+}
+
+extension DateFormateX on DateTime {
+  String formattedDate() {
+    String formattedDate =
+        DateFormat("dd'${_getOrdinalSuffix(this.day)}' MMM yy  hh:mm")
+            .format(this);
+    return formattedDate;
   }
 }

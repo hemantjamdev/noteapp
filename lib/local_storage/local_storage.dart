@@ -3,6 +3,8 @@ import 'package:note/constants/strings.dart';
 import 'package:note/model/note_model.dart';
 import 'package:uuid/uuid.dart';
 
+Uuid uuid = const Uuid();
+
 class DBHelper {
   static final DBHelper _instance = DBHelper._internal();
 
@@ -12,8 +14,6 @@ class DBHelper {
 
   DBHelper._internal();
 
-  Uuid uuid = const Uuid();
-
   saveTitle(String titleName) async {
     final hive = await Hive.openBox<String>(Strings.titleDatabaseName);
     hive.put(Strings.titleDatabaseKey, titleName);
@@ -21,32 +21,22 @@ class DBHelper {
 
   restoreBackup(NoteModel noteModel) async {
     final hive = await Hive.openBox<NoteModel>(Strings.databaseName);
-    hive.put(noteModel.key, noteModel);
+    hive.put(noteModel.id, noteModel);
   }
 
-  add({required String title, required String disc}) async {
+  void addNote({required NoteModel note}) async {
     final hive = await Hive.openBox<NoteModel>(Strings.databaseName);
-    final DateTime dateTime = DateTime.now();
-    String key = uuid.v1();
-    NoteModel note =
-        NoteModel(key: key, title: title, disc: disc, time: dateTime);
-    hive.put(key, note);
+    hive.put(note.id, note);
   }
 
-  update(
-      {required String key,
-      required String title,
-      required String disc}) async {
+  void update({required NoteModel note}) async {
     final hive = await Hive.openBox<NoteModel>(Strings.databaseName);
-    final DateTime dateTime = DateTime.now();
-    NoteModel note =
-        NoteModel(key: key, title: title, disc: disc, time: dateTime);
-    hive.put(key, note);
+    hive.put(note.id, note);
   }
 
-  void delete({required String key}) async {
+  void delete({required String id}) async {
     final hive = await Hive.openBox<NoteModel>(Strings.databaseName);
-    hive.delete(key);
+    hive.delete(id);
   }
 
   void deleteAll() async {
@@ -54,15 +44,15 @@ class DBHelper {
     hive.clear();
   }
 
-  Future<List<NoteModel>> getAll() async {
+  Future<List<NoteModel>?> getAll() async {
     List<NoteModel> notes = <NoteModel>[];
     final hive = await Hive.openBox<NoteModel>(Strings.databaseName);
     notes = hive.values.toList();
     return notes;
   }
 
-  Future<NoteModel?> getNoteByKey(String key) async {
+  Future<NoteModel?> getNoteById(String id) async {
     final hive = await Hive.openBox<NoteModel>(Strings.databaseName);
-    return hive.get(key);
+    return (hive.get(id));
   }
 }

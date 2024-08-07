@@ -4,8 +4,75 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2aa62f2f-3db5-473e-9283-b58c75d5347e" name="Changes" comment="- New project changes">
+    <list default="true" id="2aa62f2f-3db5-473e-9283-b58c75d5347e" name="Changes" comment="- Dependencies added">
+      <change afterPath="$PROJECT_DIR$/lib/model/chat_model.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/model/color_enum.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/gemini_chat/cubit/gemini_chat_cubit.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/gemini_chat/cubit/gemini_chat_state.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/gemini_chat/gemini_chat.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/gemini_chat/view/gemini_chat_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/gemini_chat/view/view.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/home/cubit/home_cubit.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/home/cubit/home_state.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/home/home.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/home/view/home_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/home/view/view.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/note_add/cubit/note_add_cubit.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/note_add/cubit/note_add_state.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/note_add/note_add.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/note_add/view/note_add_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/note_add/view/view.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/note_edit/cubit/note_edit_cubit.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/note_edit/cubit/note_edit_state.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/note_edit/note_edit.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/note_edit/view/note_edit_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/note_edit/view/view.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/note_list/cubit/note_list_cubit.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/note_list/cubit/note_list_state.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/note_list/note_list.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/note_list/view/note_list_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/note_list/view/view.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/splash/view.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/modules/splash/view/splash_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/repository/note_repository.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/navigation.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/widgets/custom_dialog.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/widgets/note_card.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/other.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/kotlin/com/hj/note/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/kotlin/com/hj/note/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/profile/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/profile/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/animation/background.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/animation/notfound.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/animation/splash.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/constants/app_icons.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/constants/app_icons.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/local_storage/local_storage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/local_storage/local_storage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/model/chat_message.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/model/note_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/note_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/note_app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/note_app.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/routes.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home_page.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/notes/edit_note.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/notes/error_page.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/notes/note_add.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/notes/note_list.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/splash.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/date_formate.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/date_formate.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/app_bar.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/confirmation_dialog.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/delete_all.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/edit_title.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/loading.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/note.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/widget.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -16,45 +83,69 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "hemantjamdev"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;hemantjamdev&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/hemantjamdev/noteapp.git",
-    "accountId": "166bf106-8358-46e0-9be9-e03383298f1c"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/hemantjamdev/noteapp.git&quot;,
+    &quot;accountId&quot;: &quot;166bf106-8358-46e0-9be9-e03383298f1c&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2jmIBRpnTn2nmzatPj9Obr6JtXh" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Flutter.main.dart.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main",
-    "io.flutter.reload.alreadyRun": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/hemant/Projects/noteapp",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.android.tools.idea.streaming.zoom.toolbar.visible&quot;: &quot;false&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/hemant/Projects/noteapp&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/modules/note/view" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
@@ -78,11 +169,43 @@
       <option name="project" value="LOCAL" />
       <updated>1721990914663</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="- Dependencies added">
+      <option name="closed" value="true" />
+      <created>1721996562117</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1721996562117</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="development" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="- New project changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="- New project changes" />
+    <MESSAGE value="- Dependencies added" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Dependencies added" />
   </component>
 </project>

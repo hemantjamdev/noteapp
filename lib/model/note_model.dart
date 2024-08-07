@@ -1,39 +1,32 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
+import 'package:note/utils/date_formate.dart';
 
+part 'note_model.freezed.dart';
 part 'note_model.g.dart';
 
 @HiveType(typeId: 0)
-class NoteModel {
-  @HiveField(0)
-  final String key;
-  @HiveField(1)
-  final String title;
-  @HiveField(2)
-  final String disc;
-  @HiveField(3)
-  final DateTime time;
+@freezed
+class NoteModel with _$NoteModel {
+  const factory NoteModel({
+    @HiveField(0) @JsonValue("id") required String id,
+    @HiveField(1) @JsonValue("title") String? title,
+    @HiveField(2) @JsonValue("description") String? description,
+    @HiveField(3) @JsonValue("date") required DateTime date,
+    @HiveField(4) @Default(false) @JsonValue("isCompeted") bool isCompeted,
+    @HiveField(5) @Default(false) @JsonValue("isPinned") bool isPinned,
+    @HiveField(6) @Default(0xFFFFFFFF) @JsonValue("color") int color,
+    @HiveField(7) @Default(false) @JsonValue("isPrivate") bool isPrivate,
+  }) = _NoteModel;
 
-  NoteModel(
-      {required this.title,
-      required this.disc,
-      required this.time,
-      required this.key});
+  factory NoteModel.fromJson(Map<String, dynamic> json) =>
+      _$NoteModelFromJson(json);
+}
 
-  factory NoteModel.fromJson(Map<String, dynamic> json) {
-    return NoteModel(
-      key: json['key'],
-      title: json['title'],
-      disc: json['disc'],
-      time: DateTime.parse(json['time']),
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'key': key,
-      'title': title,
-      'disc': disc,
-      'time': time.toIso8601String(),
-    };
+extension NoteModelX on NoteModel {
+  bool filter(String value) {
+    return (this.title!.toLowerCase().contains(value) ||
+        this.description!.toLowerCase().contains(value) ||
+        this.date.formattedDate().toLowerCase().contains(value));
   }
 }

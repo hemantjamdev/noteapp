@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:note/constants/strings.dart';
 import 'package:note/model/note_model.dart';
@@ -16,7 +15,5 @@ void main() async {
   Hive.registerAdapter(NoteModelAdapter());
   await Hive.openBox<NoteModel>(Strings.databaseName);
   await Hive.openBox<String>(Strings.titleDatabaseName);
-  SystemChrome.setPreferredOrientations(
-          [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
-      .then((value) => runApp(const NoteApp()));
+  runApp(const NoteApp());
 }
